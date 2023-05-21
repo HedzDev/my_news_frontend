@@ -4,16 +4,21 @@ import styles from '../styles/TopArticle.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 
-function TopArticle() {
+function TopArticle(props) {
   return (
     <>
       <div className={styles.topContainer}>
-        <Image src="/examplePic.png" alt="pic" width={700} height={400} />
+        <Image
+          src={props.urlToImage}
+          alt={props.title}
+          width={700}
+          height={400}
+        />
         <div className={styles.topText}>
-          <h2>Un titre</h2>
+          <h2>{props.title}</h2>
           <FontAwesomeIcon icon={faBookmark} className={styles.bookmarkIcon} />
-          <h4>Un auteur</h4>
-          <p>Une description</p>
+          <h4>{props.author}</h4>
+          <p>{props.description}</p>
         </div>
       </div>
     </>

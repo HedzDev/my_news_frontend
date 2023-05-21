@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from '../styles/Header.module.css';
+import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
 import { DateTime } from 'luxon';
@@ -15,12 +16,12 @@ function Header() {
         <FontAwesomeIcon icon={faUser} className={styles.userIcon} />
       </div>
       <div className={styles.linkContainer}>
-        <a href="#" className={styles.link}>
+        <Link href="/" className={styles.link}>
           Articles
-        </a>
-        <a href="#" className={styles.link}>
+        </Link>
+        <Link href="/bookmarks" className={styles.link}>
           Bookmarks
-        </a>
+        </Link>
       </div>
     </header>
   );
