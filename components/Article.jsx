@@ -4,6 +4,8 @@ import styles from '../styles/Article.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 
+// Code du composant Article qui représente un article de presse.
+
 function Article(props) {
   return (
     <>

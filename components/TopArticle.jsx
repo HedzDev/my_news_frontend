@@ -4,6 +4,8 @@ import styles from '../styles/TopArticle.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
 
+// Code du composant TopArticle qui représente l'article principal.
+
 function TopArticle(props) {
   return (
     <>
