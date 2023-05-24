@@ -9,11 +9,13 @@ export default function Home() {
   const [articlesData, setArticlesData] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3001/articles')
-      .then((res) => res.json())
+    // On utilise le hook useEffect pour effectuer une requête au serveur au chargement de la page.
+    fetch('http://localhost:3001/articles') // On utilise la méthode fetch pour effectuer une requête GET au serveur.
+      .then((res) => res.json()) // On utilise la méthode json() pour transformer la réponse en objet JavaScript.
       .then((data) => {
-        setTopArticle(data.articles[0]);
-        setArticlesData(data.articles.slice(1));
+        // On récupère les données et on les stocke dans le state.
+        setTopArticle(data.articles[0]); // On stocke le premier article dans le state topArticle.
+        setArticlesData(data.articles.slice(1)); // On stocke les autres articles dans le state articlesData.
       });
   }, []);
 
