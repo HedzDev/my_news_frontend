@@ -22,6 +22,7 @@ function Article(props) {
           width={400}
           height={225}
         />
+        <p>{props.description}</p>
       </div>
     </>
   );
