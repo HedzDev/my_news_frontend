@@ -3,10 +3,29 @@ import Image from 'next/image';
 import styles from '../styles/TopArticle.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch } from 'react-redux';
+import { addBookmarks, removeBookmarks } from '@/reducers/bookmarks';
 
 // Code du composant TopArticle qui représente l'article principal.
 
 function TopArticle(props) {
+  const dispatch = useDispatch();
+
+  const handleBookmarkClick = () => {
+    if (props.isBookmarked) {
+      dispatch(removeBookmarks(props));
+    } else {
+      dispatch(addBookmarks(props));
+    }
+  };
+
+  let iconStyle = {};
+  if (props.isBookmarked) {
+    iconStyle = { color: '#E9BE59' };
+  } else {
+    iconStyle = { color: '#000000' };
+  }
+
   return (
     <>
       <div className={styles.topContainer}>
@@ -18,7 +37,12 @@ function TopArticle(props) {
         />
         <div className={styles.topText}>
           <h2>{props.title}</h2>
-          <FontAwesomeIcon icon={faBookmark} className={styles.bookmarkIcon} />
+          <FontAwesomeIcon
+            style={iconStyle}
+            icon={faBookmark}
+            className={styles.bookmarkIcon}
+            onClick={() => handleBookmarkClick()}
+          />
           <h4>{props.author}</h4>
           <p>{props.description}</p>
         </div>
