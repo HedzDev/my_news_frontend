@@ -30,7 +30,7 @@ export default function Home() {
     return (
       <Article
         key={i}
-        isBookmarked={isBookmarked}
+        isBookmarked={isBookmarked} //booléen qui vient vérifier si l'article est présent ou pas dans bookmarks.
         {...data} // On passe toutes les props d'un coup avec l'opérateur spread (...)
       />
     );

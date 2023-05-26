@@ -60,3 +60,9 @@
     flex-direction: column;
     align-items: center;
 }
+
+.logout {
+    cursor: pointer;
+    color: var(--yellow-color);
+    padding-left: 10px;
+}

@@ -12,8 +12,9 @@ export const bookmarksSlice = createSlice({
       state.value.push(action.payload);
     },
     removeBookmarks: (state, action) => {
+      console.log('actionpayload.title', action.payload.title);
       state.value = state.value.filter(
-        (bookmark) => bookmark.title != action.payload.title
+        (element) => element.title != action.payload.title
       );
     },
   },

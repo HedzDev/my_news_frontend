@@ -22,7 +22,7 @@ function Bookmarks() {
       </Head>
       <div className={styles.container}>
         <h2 className={styles.title}>Bookmarks</h2>
-        <p>{content}</p>
+        <div className={styles.bookmarksContainer}>{content}</div>
       </div>
     </>
   );

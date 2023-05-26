@@ -3,9 +3,10 @@ import Header from '@/components/Header';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
 import bookmarks from '@/reducers/bookmarks';
+import user from '@/reducers/user';
 
 const store = configureStore({
-  reducer: { bookmarks },
+  reducer: { bookmarks, user },
 });
 
 export default function App({ Component, pageProps }) {

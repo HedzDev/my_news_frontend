@@ -22,8 +22,11 @@ function Article(props) {
   let iconStyle = {};
 
   if (props.isBookmarked) {
+    // si isBookmarked est true cela veut dire que l'article est présent dans bookmarks
+    // donc l'icone sera jaune
     iconStyle = { color: '#E9BE59' };
   } else {
+    //sinon elle sera noir
     iconStyle = { color: '#000000' };
   }
 
