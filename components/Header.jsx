@@ -13,15 +13,14 @@ import { Modal } from 'antd';
 
 function Header() {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.value);
+
   const date = DateTime.now().toFormat('MMMM dd yyyy'); // On utilise la librairie Luxon pour afficher la date du jour.
   const [isModalVisible, setIsModalVisible] = useState(false); // On utilise le hook useState pour gérer l'état du modal. Par défaut, le modal n'est pas visible.
-
   const [signupUsername, setSignupUsername] = useState('');
   const [signupPassword, setSignupPassword] = useState('');
   const [signinUsername, setSigninUsername] = useState('');
   const [signinPassword, setSigninPassword] = useState('');
-
-  const user = useSelector((state) => state.user.value);
 
   const handleSignup = () => {
     fetch('http://localhost:3001/users/signup', {
@@ -38,6 +37,7 @@ function Header() {
           dispatch(login({ token: data.token, username: signupUsername }));
           setSignupUsername('');
           setSignupPassword('');
+          setIsModalVisible(false);
         }
       });
   };
@@ -56,6 +56,7 @@ function Header() {
           dispatch(login({ token: data.token, username: signinUsername }));
           setSigninUsername('');
           setSigninPassword('');
+          setIsModalVisible(false);
         }
       });
   };
@@ -68,11 +69,9 @@ function Header() {
   const handelLogout = () => {
     dispatch(logout());
     dispatch(removeAllBookmarks());
-    setIsModalVisible(!isModalVisible);
   };
 
   let userSection;
-
   if (user.token) {
     userSection = (
       <div>
@@ -105,7 +104,6 @@ function Header() {
   }
 
   let modalContent;
-
   if (!user.token) {
     modalContent = // On définit le contenu du modal. Il s'agit de deux formulaires d'authentification (signup et signin).
       (

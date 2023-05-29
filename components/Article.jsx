@@ -11,13 +11,13 @@ import { addBookmarks, removeBookmarks } from '@/reducers/bookmarks';
 function Article(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
-  console.log(user);
 
   const handleBookmarkClick = () => {
     if (!user.token) {
+      // si l'utilisateur n'est pas connecté, on ne fait rien et on sort de la fonction
       return;
     }
-    fetch(`http://localhost:3001/users/canBookmark/${user.token}`)
+    fetch(`http://localhost:3001/users/canBookmark/${user.token}`) // on vérifie si l'utilisateur peut ajouter un article en favoris
       .then((res) => res.json())
       .then((data) => {
         if (data.result && data.canBookmark) {
@@ -31,7 +31,6 @@ function Article(props) {
   };
 
   let iconStyle = {};
-
   if (props.isBookmarked) {
     // si isBookmarked est true cela veut dire que l'article est présent dans bookmarks
     // donc l'icone sera jaune
