@@ -3,6 +3,7 @@ import styles from '../styles/Header.module.css';
 import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, logout } from '../reducers/user';
+import { removeAllBookmarks } from '@/reducers/bookmarks';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { DateTime } from 'luxon';
@@ -21,7 +22,6 @@ function Header() {
   const [signinPassword, setSigninPassword] = useState('');
 
   const user = useSelector((state) => state.user.value);
-  console.log(user);
 
   const handleSignup = () => {
     fetch('http://localhost:3001/users/signup', {
@@ -35,7 +35,7 @@ function Header() {
       .then((res) => res.json())
       .then((data) => {
         if (data.result) {
-          dispatch(login({ isConnected: true, username: signupUsername }));
+          dispatch(login({ token: data.token, username: signupUsername }));
           setSignupUsername('');
           setSignupPassword('');
         }
@@ -53,7 +53,7 @@ function Header() {
       .then((res) => res.json())
       .then((data) => {
         if (data.result) {
-          dispatch(login({ isConnected: true, username: signinUsername }));
+          dispatch(login({ token: data.token, username: signinUsername }));
           setSigninUsername('');
           setSigninPassword('');
         }
@@ -67,12 +67,13 @@ function Header() {
 
   const handelLogout = () => {
     dispatch(logout());
+    dispatch(removeAllBookmarks());
     setIsModalVisible(!isModalVisible);
   };
 
   let userSection;
 
-  if (user.isConnected) {
+  if (user.token) {
     userSection = (
       <div>
         Welcome {user.username} /
@@ -105,7 +106,7 @@ function Header() {
 
   let modalContent;
 
-  if (!user.isConnected) {
+  if (!user.token) {
     modalContent = // On définit le contenu du modal. Il s'agit de deux formulaires d'authentification (signup et signin).
       (
         <div className={styles.registerContainer}>

@@ -3,20 +3,31 @@ import Image from 'next/image';
 import styles from '../styles/Article.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBookmark } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { addBookmarks, removeBookmarks } from '@/reducers/bookmarks';
 
 // Code du composant Article qui représente un article de presse.
 
 function Article(props) {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user.value);
+  console.log(user);
 
   const handleBookmarkClick = () => {
-    if (props.isBookmarked) {
-      dispatch(removeBookmarks(props));
-    } else {
-      dispatch(addBookmarks(props));
+    if (!user.token) {
+      return;
     }
+    fetch(`http://localhost:3001/users/canBookmark/${user.token}`)
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.result && data.canBookmark) {
+          if (props.isBookmarked) {
+            dispatch(removeBookmarks(props));
+          } else {
+            dispatch(addBookmarks(props));
+          }
+        }
+      });
   };
 
   let iconStyle = {};
