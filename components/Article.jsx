@@ -2,9 +2,10 @@ import React from 'react';
 import Image from 'next/image';
 import styles from '../styles/Article.module.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBookmark } from '@fortawesome/free-solid-svg-icons';
+import { faBookmark, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { addBookmarks, removeBookmarks } from '@/reducers/bookmarks';
+import { hideArticles } from '@/reducers/hiddenArticles';
 
 // Code du composant Article qui représente un article de presse.
 
@@ -31,10 +32,12 @@ function Article(props) {
   };
 
   let iconStyle = {};
+  let eyeStyle = {};
   if (props.isBookmarked) {
     // si isBookmarked est true cela veut dire que l'article est présent dans bookmarks
     // donc l'icone sera jaune
     iconStyle = { color: '#E9BE59' };
+    eyeStyle = { display: 'none' };
   } else {
     //sinon elle sera noir
     iconStyle = { color: '#000000' };
@@ -45,6 +48,14 @@ function Article(props) {
       <div className={styles.articleContainer}>
         <div className={styles.articleHeader}>
           <h3>{props.title}</h3>
+          <FontAwesomeIcon
+            icon={faEyeSlash}
+            className={styles.eyeIcon}
+            style={eyeStyle}
+            onClick={() => {
+              dispatch(hideArticles(props.title));
+            }}
+          />
           <FontAwesomeIcon
             icon={faBookmark}
             style={iconStyle}

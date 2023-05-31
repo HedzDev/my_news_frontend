@@ -4,8 +4,9 @@ import Link from 'next/link';
 import { useDispatch, useSelector } from 'react-redux';
 import { login, logout } from '../reducers/user';
 import { removeAllBookmarks } from '@/reducers/bookmarks';
+import { displayArticles } from '@/reducers/hiddenArticles';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faXmark, faEye } from '@fortawesome/free-solid-svg-icons';
 import { DateTime } from 'luxon';
 import { Modal } from 'antd';
 
@@ -152,6 +153,13 @@ function Header() {
         <Link href="/">
           <h1 className={styles.title}>My News</h1>
         </Link>
+        <FontAwesomeIcon
+          onClick={() => {
+            dispatch(displayArticles());
+          }}
+          icon={faEye}
+          className={styles.eyeIcon}
+        />
         {userSection}
       </div>
       <div className={styles.linkContainer}>

@@ -16,10 +16,16 @@
     margin: 15px 0;
 }
 
-.bookmarkIcon {
+.eyeIcon {
+    padding-right: 5px;
+}
+
+.bookmarkIcon,
+.eyeIcon {
     cursor: pointer;
 }
 
-.bookmarkIcon:hover {
+.bookmarkIcon:hover,
+.eyeIcon:hover {
     opacity: 0.6;
 }

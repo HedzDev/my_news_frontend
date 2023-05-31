@@ -7,7 +7,8 @@ import { useSelector } from 'react-redux';
 
 export default function Home() {
   const bookmarks = useSelector((state) => state.bookmarks.value);
-
+  const hiddenArticles = useSelector((state) => state.hiddenArticles.value);
+  console.log(hiddenArticles);
   const [topArticle, setTopArticle] = useState({}); // Un objet
   const [articlesData, setArticlesData] = useState([]); // Tableaux d'objets
 
@@ -22,7 +23,10 @@ export default function Home() {
       });
   }, []);
 
-  const articles = articlesData.map((data, i) => {
+  const filteredData = articlesData.filter(
+    (el) => !hiddenArticles.includes(el.title)
+  );
+  const articles = filteredData.map((data, i) => {
     // On map sur le tableau articlesData pour créer un composant Article pour chaque article, et on lui passe les props.
     const isBookmarked = bookmarks.some(
       (bookmark) => bookmark.title === data.title
